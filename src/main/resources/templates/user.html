@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User</title>
+</head>
+<body>
+
+<header th:replace="fragments/header :: header"></header>
+
+<ul>
+<!--    Using https://placeholder.com/ for temporary profile image-->
+    <img src="https://via.placeholder.com/150">
+    <li th:text="'username: ' + ${user.getUsername()}"></li>
+<!--    reference for thymeleaf conditionals https://www.baeldung.com/spring-thymeleaf-conditionals-->
+    <li th:if="${user.getFullName()} ? 'name: ' + ${user.getFullName()}: 'name: <not given>'"></li>
+    <li th:text="${user.getBio()}"></li>
+</ul>
+</body>
+</html>
