@@ -1,14 +1,18 @@
 package com.jnelsonjava.codefellowship.models.user;
 
+import com.jnelsonjava.codefellowship.models.post.Post;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 
 @Entity
 public class ApplicationUser implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
@@ -17,17 +21,8 @@ public class ApplicationUser implements UserDetails {
     String username;
     private String password;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL)
+    List<Post> posts = new ArrayList<>();
 
     String firstName = null;
     String lastName = null;
@@ -35,12 +30,15 @@ public class ApplicationUser implements UserDetails {
     String bio = null;
     @Column(unique = true)
     String email = null;
+//    Using https://placeholder.com/ for temporary profile image
+    String profileImgUrl = "https://via.placeholder.com/150";
 
     public ApplicationUser() {}
 
-    public ApplicationUser(String username, String password) {
+    public ApplicationUser(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     @Override
@@ -54,6 +52,18 @@ public class ApplicationUser implements UserDetails {
 
     public long getId() {
         return id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -90,6 +100,22 @@ public class ApplicationUser implements UserDetails {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getProfileImgUrl() {
+        return profileImgUrl;
+    }
+
+    public void setProfileImgUrl(String profileImgUrl) {
+        this.profileImgUrl = profileImgUrl;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
     }
 
     @Override

@@ -1,0 +1,5 @@
+
+<div th:fragment="post" th:each="post : ${user.getPosts()}">
+    <p th:text="'Posted by ' + ${user.getUsername()} + ' on ' + ${post.getCreateAt()}"></p>
+    <p th:text="${post.getBody()}"></p>
+</div>
