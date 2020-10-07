@@ -11,13 +11,12 @@
 
 <header th:replace="fragments/header :: header"></header>
 
-<ul>
-<!--    Using https://placeholder.com/ for temporary profile image-->
-    <img src="https://via.placeholder.com/150">
-    <li th:text="'username: ' + ${user.getUsername()}"></li>
-<!--    reference for thymeleaf conditionals https://www.baeldung.com/spring-thymeleaf-conditionals-->
-    <li th:if="${user.getFullName()} ? 'name: ' + ${user.getFullName()}: 'name: <not given>'"></li>
-    <li th:text="${user.getBio()}"></li>
-</ul>
+
+    <img th:src="${user.getProfileImgUrl()}">
+    <p th:text="'username: ' + ${user.getUsername()}"></p>
+    <p th:if="${user.getFullName()} != ''" th:text="'name: ' + ${user.getFullName()}">name: not provided</p>
+    <p th:if="${user.getBio()} != ''" th:text="'bio: ' + ${user.getBio()}"></p>
+
+
 </body>
 </html>

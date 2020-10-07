@@ -12,7 +12,8 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String renderHome() {
+    public String renderHome(Model m, Principal principal) {
+        m.addAttribute("principal", principal);
         return "home";
     }
 }
