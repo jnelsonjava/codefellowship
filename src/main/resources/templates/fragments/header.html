@@ -6,6 +6,8 @@
     <p th:if="${principal}" th:text="'Hi, ' + ${principal.getName()} + '. You are currently logged in'"></p>
     <p th:if="${principal}"><a href="/logout">Logout</a></p>
     <p th:if="${principal}"><a href="/myprofile">My Profile</a></p>
+    <p th:if="${principal}"><a href="/feed">My Feed</a></p>
+    <p th:if="${principal}"><a href="/users">Browse Users</a></p>
 
     <nav>
         <li><a href="/">home</a></li>

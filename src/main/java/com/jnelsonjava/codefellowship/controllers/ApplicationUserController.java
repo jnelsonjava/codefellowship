@@ -61,8 +61,11 @@ public class ApplicationUserController {
         System.out.println("in user route");
         System.out.println(id);
         ApplicationUser user = applicationUserRepository.getOne(id);
+        ApplicationUser principalUser = applicationUserRepository.findByUsername(principal.getName());
+        System.out.println(principalUser.getFollowing().contains(user));
         m.addAttribute("user", user);
         m.addAttribute("principal", principal);
+        m.addAttribute("principalUser", principalUser);
         return "user";
     }
 
@@ -77,4 +80,35 @@ public class ApplicationUserController {
         return "myprofile";
     }
 
+    @PostMapping("/follow")
+    public RedirectView followUser(Principal principal, Long id) {
+        ApplicationUser userToFollow = applicationUserRepository.getOne(id);
+        ApplicationUser follower = applicationUserRepository.findByUsername(principal.getName());
+        userToFollow.getFollower(follower);
+        follower.follow(userToFollow);
+        applicationUserRepository.save(userToFollow);
+        applicationUserRepository.save(follower);
+        return new RedirectView("/user/" + id);
+    }
+
+    @GetMapping("/users")
+    public String renderUsers(Model m, Principal principal) {
+        ApplicationUser user = applicationUserRepository.findByUsername(principal.getName());
+        List<ApplicationUser> allUsers = applicationUserRepository.findAll();
+        m.addAttribute("user", user);
+        m.addAttribute("principal", principal);
+        m.addAttribute("allUsers", allUsers);
+        return "users";
+    }
+
+    @PostMapping("/unfollow")
+    public RedirectView unfollowUser(Principal principal, Long id) {
+        ApplicationUser userToUnfollow = applicationUserRepository.getOne(id);
+        ApplicationUser follower = applicationUserRepository.findByUsername(principal.getName());
+        userToUnfollow.removeFollower(follower);
+        follower.removeFollow(userToUnfollow);
+        applicationUserRepository.save(userToUnfollow);
+        applicationUserRepository.save(follower);
+        return new RedirectView("/user/" + id);
+    }
 }

@@ -17,6 +17,16 @@
     <p th:if="${user.getFullName()} != ''" th:text="'name: ' + ${user.getFullName()}">name: not provided</p>
     <p th:if="${user.getBio()} != ''" th:text="'bio: ' + ${user.getBio()}"></p>
 
+<!--reference for "if and" statements in thymeleaf - https://stackoverflow.com/questions/16018577/how-to-have-multiple-condition-in-an-thif-tag-using-thymeleaf-->
+<form th:if="${user.getUsername()} != ${principal.getName()} and !${principalUser.getFollowing().contains(user)}" action="/follow" method="POST">
+    <input type="hidden" name="id" th:value="${user.getId()}">
+    <input type="submit" th:value="'Follow ' + ${user.getUsername()}">
+</form>
+
+<form th:if="${user.getUsername()} != ${principal.getName()} and ${principalUser.getFollowing().contains(user)}" action="/unfollow" method="POST">
+    <input type="hidden" name="id" th:value="${user.getId()}">
+    <input type="submit" th:value="'Stop following ' + ${user.getUsername()}">
+</form>
 
 </body>
 </html>
