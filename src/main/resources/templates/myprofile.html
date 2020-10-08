@@ -19,17 +19,21 @@
 <p th:if="${user.getDateOfBirth()} != null" th:text="'date of birth: ' + ${user.getDateOfBirth()}"></p>
 <p th:if="${user.getBio()} != ''" th:text="'bio: ' + ${user.getBio()}"></p>
 
+<p>Go <a href="/users">check out some other users</a>!</p>
+
 <form action="/post" method="POST">
     <legend>Add a post</legend>
     <input type="text" name="body">
     <input type="submit" value="Add Post">
 </form>
 
+<p>Your posts:</p>
+
 <div th:replace="fragments/post :: post"></div>
 
-<div th:each="eachUser : ${allUsers}">
-    <p><span th:text="'username: ' + ${eachUser.getUsername()} + ', check out their '"></span><a th:href="'/user/' + ${eachUser.getId()}" th:text="'profile'"></a></p>
-</div>
+<div th:replace="fragments/post :: followPosts"></div>
+
+
 
 </body>
 </html>
