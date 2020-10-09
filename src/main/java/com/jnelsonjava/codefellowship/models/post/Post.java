@@ -24,7 +24,6 @@ public class Post {
     public Post(ApplicationUser applicationUser, String body) {
         this.applicationUser = applicationUser;
         this.body = body;
-        // reference for getting a current timestamp into DB - https://alvinalexander.com/java/java-current-date-example-now/
         this.createAt = new Date(Calendar.getInstance().getTime().getTime());
     }
 

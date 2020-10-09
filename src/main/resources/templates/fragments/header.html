@@ -1,17 +1,19 @@
 <!-- reference for fragments https://www.thymeleaf.org/doc/articles/layouts.html-->
 <header>
-    <h1>Code FellowShip</h1>
-    <h2>We connect coders</h2>
+    <div>
+        <h1>Code FellowShip</h1>
+        <h2>We connect coders</h2>
+    </div>
 
-    <p th:if="${principal}" th:text="'Hi, ' + ${principal.getName()} + '. You are currently logged in'"></p>
-    <p th:if="${principal}"><a href="/logout">Logout</a></p>
-    <p th:if="${principal}"><a href="/myprofile">My Profile</a></p>
-    <p th:if="${principal}"><a href="/feed">My Feed</a></p>
-    <p th:if="${principal}"><a href="/users">Browse Users</a></p>
+    <!-- <li th:if="${principal}" th:text="'Hi, ' + ${principal.getName()} + '. You are currently logged in'"></li> -->
 
     <nav>
-        <li><a href="/">home</a></li>
-        <li th:unless="${principal}"><a href="/login">login</a></li>
-        <li th:unless="${principal}"><a href="/signup">signup</a></li>
+        <li><a href="/">Home</a></li>
+        <li th:if="${principal}"><a href="/myprofile">Profile</a></li>
+        <li th:if="${principal}"><a href="/feed">Feed</a></li>
+        <li th:if="${principal}"><a href="/users">Browse Users</a></li>
+        <li th:if="${principal}">Hi, <span th:text="${principal.getName()}"></span>! <a href="/logout">Logout</a></li>
+        <li th:unless="${principal}"><a href="/login">Login</a></li>
+        <li th:unless="${principal}"><a href="/signup">Signup</a></li>
     </nav>
 </header>

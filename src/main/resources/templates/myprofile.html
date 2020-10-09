@@ -6,7 +6,7 @@
 
     <header th:replace="fragments/header :: header"></header>
     <main>
-        <img th:src="${user.getProfileImgUrl()}">
+        <img class="profileimg" th:src="${user.getProfileImgUrl()}">
         <p th:text="'username: ' + ${user.getUsername()}"></p>
         <p th:email="'email: ' + ${user.getEmail()}"></p>
         <p th:if="${user.getFullName()} != 'null null'" th:text="'name: ' + ${user.getFullName()}">name: not provided</p>

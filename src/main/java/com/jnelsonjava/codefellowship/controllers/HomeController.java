@@ -9,8 +9,6 @@ import java.security.Principal;
 @Controller
 public class HomeController {
 
-
-
     @GetMapping("/")
     public String renderHome(Model m, Principal principal) {
         m.addAttribute("principal", principal);
