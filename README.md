@@ -26,3 +26,4 @@ Enjoy!
  - Reference for date conversion - https://www.javatpoint.com/java-sql-date
  - Reference for getting a current timestamp into DB - https://alvinalexander.com/java/java-current-date-example-now/
  - Reference for FlexBox - https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+ - Reference for testing - https://spring.io/guides/gs/testing-web/
