@@ -1,32 +1,26 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>User</title>
-</head>
+<head th:replace="fragments/head :: head"></head>
+
 <body>
 
-<header th:replace="fragments/header :: header"></header>
+    <header th:replace="fragments/header :: header"></header>
+    <main>
+        <img th:src="${user.getProfileImgUrl()}">
+        <p th:text="'username: ' + ${user.getUsername()}"></p>
+        <p th:if="${user.getFullName()} != ''" th:text="'name: ' + ${user.getFullName()}">name: not provided</p>
+        <p th:if="${user.getBio()} != ''" th:text="'bio: ' + ${user.getBio()}"></p>
 
+        <form th:if="${user.getUsername()} != ${principal.getName()} and !${principalUser.getFollowing().contains(user)}" action="/follow" method="POST">
+            <input type="hidden" name="id" th:value="${user.getId()}">
+            <input type="submit" th:value="'Follow ' + ${user.getUsername()}">
+        </form>
 
-    <img th:src="${user.getProfileImgUrl()}">
-    <p th:text="'username: ' + ${user.getUsername()}"></p>
-    <p th:if="${user.getFullName()} != ''" th:text="'name: ' + ${user.getFullName()}">name: not provided</p>
-    <p th:if="${user.getBio()} != ''" th:text="'bio: ' + ${user.getBio()}"></p>
+        <form th:if="${user.getUsername()} != ${principal.getName()} and ${principalUser.getFollowing().contains(user)}" action="/unfollow" method="POST">
+            <input type="hidden" name="id" th:value="${user.getId()}">
+            <input type="submit" th:value="'Stop following ' + ${user.getUsername()}">
+        </form>
 
-<!--reference for "if and" statements in thymeleaf - https://stackoverflow.com/questions/16018577/how-to-have-multiple-condition-in-an-thif-tag-using-thymeleaf-->
-<form th:if="${user.getUsername()} != ${principal.getName()} and !${principalUser.getFollowing().contains(user)}" action="/follow" method="POST">
-    <input type="hidden" name="id" th:value="${user.getId()}">
-    <input type="submit" th:value="'Follow ' + ${user.getUsername()}">
-</form>
-
-<form th:if="${user.getUsername()} != ${principal.getName()} and ${principalUser.getFollowing().contains(user)}" action="/unfollow" method="POST">
-    <input type="hidden" name="id" th:value="${user.getId()}">
-    <input type="submit" th:value="'Stop following ' + ${user.getUsername()}">
-</form>
-
+    </main>
 </body>
 </html>

@@ -1,21 +1,17 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<head th:replace="fragments/head :: head"></head>
+
 <body>
 
-<header th:replace="fragments/header :: header"></header>
+    <header th:replace="fragments/header :: header"></header>
+    <main>
+        <p>Users:</p>
 
-<p>Users:</p>
-
-<div th:each="eachUser : ${allUsers}" th:if="${eachUser} != ${user}">
-    <p><span th:text="'username: ' + ${eachUser.getUsername()} + ', check out their '"></span><a th:href="'/user/' + ${eachUser.getId()}" th:text="'profile'"></a></p>
-</div>
+        <div th:each="eachUser : ${allUsers}" th:if="${eachUser} != ${user}">
+            <p><span th:text="'username: ' + ${eachUser.getUsername()} + ', check out their '"></span><a th:href="'/user/' + ${eachUser.getId()}" th:text="'profile'"></a></p>
+        </div>
+    </main>
 
 </body>
 </html>

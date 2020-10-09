@@ -15,3 +15,8 @@ In "application.properties", replace `<username>` and `<password>` with your Pos
 And with that, you should be set to run the app! In your terminal, enter `./gradlew bootRun` and open up http://localhost:8080/.
 
 Enjoy!
+
+## Attributions
+
+ - Reference for "if and" statements in thymeleaf - https://stackoverflow.com/questions/16018577/how-to-have-multiple-condition-in-an-thif-tag-using-thymeleaf
+
