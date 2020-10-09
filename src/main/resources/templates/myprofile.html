@@ -1,39 +1,30 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<head th:replace="fragments/head :: head"></head>
+
 <body>
 
-<header th:replace="fragments/header :: header"></header>
+    <header th:replace="fragments/header :: header"></header>
+    <main>
+        <img class="profileimg" th:src="${user.getProfileImgUrl()}">
+        <p th:text="'username: ' + ${user.getUsername()}"></p>
+        <p th:email="'email: ' + ${user.getEmail()}"></p>
+        <p th:if="${user.getFullName()} != 'null null'" th:text="'name: ' + ${user.getFullName()}">name: not provided</p>
+        <p th:if="${user.getDateOfBirth()} != null" th:text="'date of birth: ' + ${user.getDateOfBirth()}"></p>
+        <p th:if="${user.getBio()} != ''" th:text="'bio: ' + ${user.getBio()}"></p>
 
+        <p>Go <a href="/users">check out some other users</a>!</p>
 
-<img th:src="${user.getProfileImgUrl()}">
-<p th:text="'username: ' + ${user.getUsername()}"></p>
-<p th:email="'email: ' + ${user.getEmail()}"></p>
-<p th:if="${user.getFullName()} != 'null null'" th:text="'name: ' + ${user.getFullName()}">name: not provided</p>
-<p th:if="${user.getDateOfBirth()} != null" th:text="'date of birth: ' + ${user.getDateOfBirth()}"></p>
-<p th:if="${user.getBio()} != ''" th:text="'bio: ' + ${user.getBio()}"></p>
+        <form action="/post" method="POST">
+            <legend>Add a post</legend>
+            <input type="text" name="body">
+            <input type="submit" value="Add Post">
+        </form>
 
-<p>Go <a href="/users">check out some other users</a>!</p>
+        <p>Your posts:</p>
 
-<form action="/post" method="POST">
-    <legend>Add a post</legend>
-    <input type="text" name="body">
-    <input type="submit" value="Add Post">
-</form>
-
-<p>Your posts:</p>
-
-<div th:replace="fragments/post :: post"></div>
-
-<div th:replace="fragments/post :: followPosts"></div>
-
-
+        <div th:replace="fragments/post :: post"></div>
+    </main>
 
 </body>
 </html>

@@ -40,12 +40,9 @@ public class ApplicationUserController {
         ApplicationUser newUser = new ApplicationUser(username, password, email);
         if (firstName != "") newUser.setFirstName(firstName);
         if (lastName != "") newUser.setLastName(lastName);
-        // reference for date conversion https://www.javatpoint.com/java-sql-date
         if (dateOfBirth != "") newUser.setDateOfBirth(Date.valueOf(dateOfBirth));
         if (bio != "") newUser.setBio(bio);
         applicationUserRepository.save(newUser);
-//        return new RedirectView("/");
-        // reference for redirecting a POST request to a POST route: https://www.baeldung.com/spring-redirect-and-forward
         request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.TEMPORARY_REDIRECT);
         return new ModelAndView("redirect:/login");
     }
@@ -69,7 +66,6 @@ public class ApplicationUserController {
         return "user";
     }
 
-//    reference for principal found at https://www.thymeleaf.org/doc/articles/layouts.html
     @GetMapping("/myprofile")
     public String renderProfile(Model m, Principal principal) {
         ApplicationUser user = applicationUserRepository.findByUsername(principal.getName());
